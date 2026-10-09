@@ -6,6 +6,7 @@ import Setup from "./components/Setup.jsx";
 import Game from "./components/Game.jsx";
 import Results from "./components/Results.jsx";
 import Leaderboard from "./components/Leaderboard.jsx";
+import NotFound from "./components/NotFound.jsx";
 import { Background } from "./components/Decor.jsx";
 
 // Simple hash routes: #/  #/play?level=ace  #/leaderboard
@@ -13,12 +14,14 @@ function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, "");
   const [path, query = ""] = raw.split("?");
   const params = new URLSearchParams(query);
-  const route = path === "play" ? "play" : path === "leaderboard" ? "leaderboard" : "home";
-  return { route, level: params.get("level") };
+  const clean = path.replace(/\/+$/, "");
+  const routes = { "": "home", play: "play", leaderboard: "leaderboard" };
+  const route = routes[clean] || "notfound";
+  return { route, level: params.get("level"), path: clean };
 }
 
 export default function App() {
-  const [{ route, level: hashLevel }, setLocation] = useState(parseHash);
+  const [{ route, level: hashLevel, path }, setLocation] = useState(parseHash);
   const [screen, setScreen] = useState("setup"); // setup | game | results
   const [settings, setSettings] = useState(null);
   const [result, setResult] = useState(null);
@@ -37,7 +40,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const titles = { home: "Guess the Ace", play: "Play | Guess the Ace", leaderboard: "Leaderboard | Guess the Ace" };
+    const titles = { home: "Guess the Ace", play: "Play | Guess the Ace", leaderboard: "Leaderboard | Guess the Ace", notfound: "Page not found | Guess the Ace" };
     document.title = titles[route];
   }, [route]);
 
@@ -50,6 +53,7 @@ export default function App() {
 
   let page;
   if (route === "home") page = <Home />;
+  else if (route === "notfound") page = <NotFound path={path} />;
   else if (route === "leaderboard")
     page = <Leaderboard highlightId={highlightId} initialLevel={result?.level} />;
   else if (screen === "game" && settings)

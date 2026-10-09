@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file-if-exists=.env src/index.js",
-    "start": "node --env-file-if-exists=.env src/index.js",
+    "dev": "node --watch --env-file-if-exists=.env index.js",
+    "start": "node --env-file-if-exists=.env index.js",
     "fetch-images": "node scripts/fetch-images.js"
   },
   "engines": {
