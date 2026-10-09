@@ -2,7 +2,7 @@
 // every player shares one board. In dev, Vite proxies /api to the server;
 // in production set VITE_API_URL to the server's address.
 
-const API = `${import.meta.env.VITE_API_URL || ""}/api/scores`;
+const API = "https://guesstheace.onrender.com/api/scores";
 
 async function request(url, options) {
   let res;
