@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0a0d1c;
+  --color-court: #141a33;
+  --color-court-2: #1c2445;
+  --color-line: #2a3460;
+  --color-ember: #ff6b1a;
+  --color-ember-soft: #ff9a5c;
+  --color-rally: #2f6bff;
+  --color-rally-soft: #7ea3ff;
+  --color-chalk: #f3f5ff;
+  --color-mist: #8b93b8;
+  --color-win: #3ddc97;
+  --color-miss: #ff4d6d;
+
+  --font-display: "Darker Grotesque", "Arial Narrow", sans-serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-chalk);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* Outlined giant kanji in the background */
+.kanji-stroke {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "Noto Serif CJK JP", serif;
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+  writing-mode: vertical-rl;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Glass panels */
+.glass {
+  background: color-mix(in srgb, var(--color-court) 72%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--color-chalk) 9%, transparent);
+}
+
+/* A slanted cut on panels, like a sports jersey number plate */
+.cut {
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 0.85rem 1.6rem 1rem;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+.btn-ember {
+  background: var(--color-ember);
+  color: var(--color-ink);
+}
+.btn-ember:hover {
+  background: var(--color-ember-soft);
+}
+.btn-ghost {
+  background: color-mix(in srgb, var(--color-chalk) 8%, transparent);
+  color: var(--color-chalk);
+}
+.btn-ghost:hover {
+  background: color-mix(in srgb, var(--color-chalk) 16%, transparent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-rally-soft);
+  outline-offset: 3px;
+}
+
+.spin-slow {
+  animation: spin 18s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
